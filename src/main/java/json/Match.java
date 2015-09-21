@@ -1,7 +1,10 @@
 package json;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Match {
     private long match_id;
     private long match_seq_num;

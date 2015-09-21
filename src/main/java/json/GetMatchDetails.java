@@ -3,11 +3,10 @@ package json;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class GetMatchHistory {
+public class GetMatchDetails {
+    private DetailsResult result;
 
-    private MatchesResult result;
-
-    public MatchesResult getResult() {
+    public DetailsResult getResult() {
         return result;
     }
 }

@@ -1,8 +1,11 @@
 package json;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.util.ArrayList;
 
-public class Result {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class MatchesResult {
 
     private int status;
     private int num_results;
