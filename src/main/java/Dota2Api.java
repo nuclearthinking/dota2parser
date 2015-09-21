@@ -9,12 +9,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class Dota2Api {
-    private final String apiKey = "&key=D4165C76B487633AFAD2D89A87CCA831";
-    private final String accountId = "83319528";
-    private final String accountIdExpression = "&account_id=";
-    private final String historyBase = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?matches_requested=";
-    private final String lobbyType = "&lobby_type=7";
-    private final int amountOfMathces = 10;
+    final String apiKey = "&key=D4165C76B487633AFAD2D89A87CCA831";
+    final String accountId = "83319528";
+    final String accountIdExpression = "&account_id=";
+    final String historyBase = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?matches_requested=";
+    final String lobbyType = "&lobby_type=7";
+    final int amountOfMathces = 10;
 
 
     public URL apiRequestBuilder(int mathces, String accountId) {
