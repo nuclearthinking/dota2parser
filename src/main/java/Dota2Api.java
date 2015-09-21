@@ -7,7 +7,9 @@ import json.MatchDetails;
 import json.MatchHistory;
 import json.Player;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.MalformedURLException;
@@ -17,7 +19,7 @@ import java.util.List;
 
 public class Dota2Api {
     final String apiKey = "&key=D4165C76B487633AFAD2D89A87CCA831";
-    final long accountId = 45194718;
+    long accountId = 0;
     final String accountIdVar = "&account_id=";
     final String history = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?matches_requested=";
     final String lobbyType = "&lobby_type=7";
@@ -41,15 +43,16 @@ public class Dota2Api {
     }
 
     public static void main(String[] args) throws IOException {
-        long startTime = System.currentTimeMillis();
         Dota2Api d2a = new Dota2Api();
+        d2a.accountId = d2a.getAccountId();
+        long startTime = System.currentTimeMillis();
         MatchHistory history = d2a.getMatchHistory();
         List<Long> matchList = d2a.matchIdList(history);
         ArrayList<MatchDetails> detailses = d2a.mathDetailsArray(matchList);
         List<int[]> scoreList = d2a.playerScore(detailses, d2a.accountId);
         double averageKda = d2a.averageKda(scoreList);
-        System.out.println("Средний KDA Ratio игрока с ID " + d2a.accountId + " = " + averageKda);
-        System.out.println("Время выполнения: " + (System.currentTimeMillis() - startTime) + "ms");
+        System.out.println("Average KDA for last 20 rating games = " + averageKda);
+        System.out.println("Execution time: " + (System.currentTimeMillis() - startTime) + "ms");
     }
 
     public MatchHistory getMatchHistory() throws IOException {
@@ -117,6 +120,47 @@ public class Dota2Api {
             kdaSumm += match;
         }
         return new BigDecimal(kdaSumm / score.size()).setScale(3, RoundingMode.UP).doubleValue();
+    }
+
+    protected String inputString() throws IOException {
+        String inputLine = null;
+        BufferedReader is = new BufferedReader(new InputStreamReader(System.in));
+        inputLine = is.readLine();
+
+        return inputLine.toLowerCase();
+    }
+
+    protected long getAccountId() throws IOException {
+        int ticket = 0;
+        String input;
+        boolean isCorrectString = false;
+
+        while (!isCorrectString) {
+            System.out.println("Enter your Steam ID ");
+            input = inputString();
+            isCorrectString = checkUserInput(input);
+            if (isCorrectString) {
+                ticket = Integer.parseInt(input);
+                break;
+            }
+            System.out.println("Icorrect input:(");
+            System.out.println("");
+        }
+        System.out.println("Taking data from VALVE ...");
+        return ticket;
+    }
+
+    protected boolean checkUserInput(String input) {
+        if (input == null) {
+            return false;
+        }
+        try {
+            long tryLong = Long.valueOf(input);
+        } catch (NumberFormatException e) {
+            return false;
+        }
+        return true;
+
     }
 
 }
