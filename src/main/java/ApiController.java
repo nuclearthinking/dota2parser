@@ -35,11 +35,11 @@ public class ApiController {
     }
 
     public MatchDetails getMatchDetails(long matchId) throws IOException {
-        try {
+       /* try {
             Thread.sleep(600);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
-        }
+        }*/
         URL request = new URL(detailsBaseUrl + matchIdVar + matchId + apiKey);
         JsonFactory jsonFactory = new JsonFactory();
         JsonParser jp;
