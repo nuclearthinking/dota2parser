@@ -17,7 +17,7 @@ import java.util.List;
 
 public class Dota2Api {
     final String apiKey = "&key=D4165C76B487633AFAD2D89A87CCA831";
-    final long accountId = 83319528;
+    final long accountId = 45194718;
     final String accountIdVar = "&account_id=";
     final String history = "https://api.steampowered.com/IDOTA2Match_570/GetMatchHistory/V001/?matches_requested=";
     final String lobbyType = "&lobby_type=7";
@@ -79,11 +79,6 @@ public class Dota2Api {
     }
 
     public MatchDetails getMatchDetails(long matchId) throws IOException {
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         JsonFactory jsonFactory = new JsonFactory();
         JsonParser jp = jsonFactory.createParser(apiGetMatchDetails(matchId));
         ObjectMapper mapper = new ObjectMapper();
@@ -112,15 +107,16 @@ public class Dota2Api {
             if (match[1] == 0) {
                 double matchKdaResult = new BigDecimal((double) match[0] + (double) match[2]).setScale(3, RoundingMode.UP).doubleValue();
                 matchKda.add(matchKdaResult);
+            } else {
+                double matchKdaResult = new BigDecimal(((double) match[0] + (double) match[2]) / (double) match[1]).setScale(3, RoundingMode.UP).doubleValue();
+                matchKda.add(matchKdaResult);
             }
-            double matchKdaResult = new BigDecimal(((double) match[0] + (double) match[2]) / (double) match[1]).setScale(3, RoundingMode.UP).doubleValue();
-            matchKda.add(matchKdaResult);
         }
         double kdaSumm = 0.0;
         for (double match : matchKda) {
             kdaSumm += match;
         }
-        return kdaSumm / score.size();
+        return new BigDecimal(kdaSumm / score.size()).setScale(3, RoundingMode.UP).doubleValue();
     }
 
 }
