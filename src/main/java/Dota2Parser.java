@@ -20,6 +20,8 @@ public class Dota2Parser {
             history = api.getMatchHistory(MATCHES_AMOUNT, accountId);
         } catch (RuntimeException e) {
             System.out.println(e.getMessage());
+            System.out.println("Task can't be completed");
+            throw new RuntimeException("Closing ...");
         }
         List<Long> matchesList = calc.matchIdList(history);
         ArrayList<MatchDetails> matchDetailses = calc.mathDetailsArray(matchesList);
