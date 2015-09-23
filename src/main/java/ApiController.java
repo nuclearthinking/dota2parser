@@ -27,7 +27,7 @@ public class ApiController {
         try {
             jp = jsonFactory.createParser(request);
         } catch (IOException e) {
-            throw new RuntimeException("VALVE Api currently available, try later");
+            throw new RuntimeException("VALVE Api currently not available, try later");
         }
         ObjectMapper mapper = new ObjectMapper();
         MappingIterator<MatchHistory> last20matchHistory = mapper.readValues(jp, MatchHistory.class);

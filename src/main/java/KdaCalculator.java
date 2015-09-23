@@ -14,6 +14,7 @@ import java.util.List;
  */
 
 public class KdaCalculator {
+    Dota2Parser dota2Parser = new Dota2Parser();
 
     private ApiController api = new ApiController();
 

@@ -15,6 +15,8 @@ public class Dota2ParserGUI extends JDialog {
     private JTextField textField1;
     private JLabel text;
     private JButton calculateButton;
+    private JProgressBar progressBar1;
+    private JLabel steamID;
     private ApiController api = new ApiController();
     private KdaCalculator calc = new KdaCalculator();
 
@@ -23,8 +25,11 @@ public class Dota2ParserGUI extends JDialog {
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
 
+        progressBar1.setValue(0);
+        progressBar1.setMaximum(100);
         calculateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                calculateButton.setEnabled(false);
                 try {
                     onCalculate();
                 } catch (IOException e1) {
