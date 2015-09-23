@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Dota2KDa extends JDialog {
+public class Dota2ParserGUI extends JDialog {
     private static final int MATCHES_AMOUNT = 20;
     private JPanel contentPane;
     private JButton buttonOK;
@@ -18,7 +18,7 @@ public class Dota2KDa extends JDialog {
     private ApiController api = new ApiController();
     private KdaCalculator calc = new KdaCalculator();
 
-    public Dota2KDa() {
+    public Dota2ParserGUI() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -39,7 +39,6 @@ public class Dota2KDa extends JDialog {
             }
         });
 
-// call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
@@ -47,7 +46,6 @@ public class Dota2KDa extends JDialog {
             }
         });
 
-// call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onCancel();
@@ -78,12 +76,11 @@ public class Dota2KDa extends JDialog {
 
 
     private void onCancel() {
-// add your code here if necessary
         dispose();
     }
 
     public static void main(String[] args) {
-        Dota2KDa dialog = new Dota2KDa();
+        Dota2ParserGUI dialog = new Dota2ParserGUI();
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
