@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.Pane?>
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="248.0" prefWidth="422.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+   <children>
+      <TextField fx:id="steamIdTextArea" layoutX="72.0" layoutY="44.0" prefHeight="25.0" prefWidth="230.0" />
+      <Label fx:id="steamIdLabel" layoutX="14.0" layoutY="48.0" text="Steam ID" />
+      <Button fx:id="button" layoutX="320.0" layoutY="44.0" mnemonicParsing="false" onAction="#calculate" prefHeight="25.0" prefWidth="76.0" text="Start" />
+      <Label fx:id="resultText" alignment="CENTER" layoutX="28.0" layoutY="124.0" prefHeight="25.0" prefWidth="366.0" text="Enter you'r Steam ID, then press button." textAlignment="CENTER" />
+      <ProgressBar fx:id="progressBar" layoutX="29.0" layoutY="87.0" prefHeight="18.0" prefWidth="366.0" progress="0.0" />
+   </children>
+</Pane>

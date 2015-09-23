@@ -10,7 +10,6 @@ import java.util.List;
 public class Dota2ParserGUI extends JDialog {
     private static final int MATCHES_AMOUNT = 20;
     private JPanel contentPane;
-    private JButton buttonOK;
     private JButton buttonCancel;
     private JTextField textField1;
     private JLabel text;
@@ -23,7 +22,6 @@ public class Dota2ParserGUI extends JDialog {
     public Dota2ParserGUI() {
         setContentPane(contentPane);
         setModal(true);
-        getRootPane().setDefaultButton(buttonOK);
 
         progressBar1.setValue(0);
         progressBar1.setMaximum(100);
