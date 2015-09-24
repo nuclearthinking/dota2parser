@@ -12,9 +12,6 @@ import java.io.IOException;
 public class Dota2Kda extends Application {
     private Stage primaryStage;
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
