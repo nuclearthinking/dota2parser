@@ -60,6 +60,7 @@ public class MainController {
 
     protected void calculationStart() {
         double progress = 0.0;
+        double step = 0;
         String s1 = steamIdTextArea.getText();
 
         int accountId = Integer.parseInt(s1);
@@ -72,15 +73,16 @@ public class MainController {
             Platform.runLater(() -> button.setDisable(false));
         }
         List<Long> matchesList = calc.matchIdList(history);
+        step = (double) 1 / matchesList.size();
         ArrayList<MatchDetails> matchDetailses = new ArrayList<>();
         for (Long matchId : matchesList) {
             try {
-                progress += 0.05;
+                progress += step;
                 matchDetailses.add(api.getMatchDetails(matchId));
                 final double finalProgress = progress;
                 Platform.runLater(() -> progressBar.setProgress(finalProgress));
             } catch (RuntimeException e) {
-                progress += 0.05;
+                progress += step;
                 final double finalProgress = progress;
                 Platform.runLater(() -> progressBar.setProgress(finalProgress));
             }
