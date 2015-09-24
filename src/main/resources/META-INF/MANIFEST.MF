@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: Dota2ParserGUI
+Main-Class: Dota2Kda
 
