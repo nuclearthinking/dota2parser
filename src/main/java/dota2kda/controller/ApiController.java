@@ -8,6 +8,7 @@ import dota2kda.json.MatchDetails;
 import dota2kda.json.MatchHistory;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 /**
@@ -22,8 +23,13 @@ public class ApiController {
     final String detailsBaseUrl = "https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?";
     final String matchIdVar = "match_id=";
 
-    public MatchHistory getMatchHistory(int matchesAmount, long accountId) throws IOException {
-        URL request = new URL(historyBaseUrl + matchesAmount + accountIdVar + accountId + lobbyType + apiKey);
+    public MatchHistory getMatchHistory(int matchesAmount, long accountId) {
+        URL request = null;
+        try {
+            request = new URL(historyBaseUrl + matchesAmount + accountIdVar + accountId + lobbyType + apiKey);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("VALVE Api currently not available, try later");
+        }
         JsonFactory jsonFactory = new JsonFactory();
         JsonParser jp;
         try {
@@ -32,17 +38,28 @@ public class ApiController {
             throw new RuntimeException("VALVE Api currently not available, try later");
         }
         ObjectMapper mapper = new ObjectMapper();
-        MappingIterator<MatchHistory> last20matchHistory = mapper.readValues(jp, MatchHistory.class);
+        MappingIterator<MatchHistory> last20matchHistory = null;
+        try {
+            last20matchHistory = mapper.readValues(jp, MatchHistory.class);
+        } catch (IOException e) {
+            throw new RuntimeException("VALVE Api currently not available, try later");
+        }
         return last20matchHistory.next();
     }
 
-    public MatchDetails getMatchDetails(long matchId) throws IOException {
+    public MatchDetails getMatchDetails(long matchId) {
         try {
             Thread.sleep(600);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
-        URL request = new URL(detailsBaseUrl + matchIdVar + matchId + apiKey);
+        URL request = null;
+        try {
+            request = new URL(detailsBaseUrl + matchIdVar + matchId + apiKey);
+        } catch (MalformedURLException e) {
+            throw new RuntimeException("VALVE Api currently available, try later");
+
+        }
         JsonFactory jsonFactory = new JsonFactory();
         JsonParser jp;
         try {
@@ -51,7 +68,13 @@ public class ApiController {
             throw new RuntimeException("VALVE Api currently available, try later");
         }
         ObjectMapper mapper = new ObjectMapper();
-        MappingIterator<MatchDetails> matchDetails = mapper.readValues(jp, MatchDetails.class);
+        MappingIterator<MatchDetails> matchDetails = null;
+        try {
+            matchDetails = mapper.readValues(jp, MatchDetails.class);
+        } catch (IOException e) {
+            throw new RuntimeException("VALVE Api currently available, try later");
+
+        }
         return matchDetails.next();
     }
 }

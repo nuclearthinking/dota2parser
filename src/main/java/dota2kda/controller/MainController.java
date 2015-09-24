@@ -13,7 +13,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,16 +61,15 @@ public class MainController {
     protected void calculationStart() {
         double progress = 0.0;
         String s1 = steamIdTextArea.getText();
+
         int accountId = Integer.parseInt(s1);
+
         MatchHistory history = null;
         try {
             history = api.getMatchHistory(MATCHES_AMOUNT, accountId);
         } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-            System.out.println("Task can't be completed");
-            throw new RuntimeException("Closing ...");
-        } catch (IOException e) {
-            e.printStackTrace();
+            Platform.runLater(() -> resultText.setText("VALVE API is currently not available, try later... "));
+            Platform.runLater(() -> button.setDisable(false));
         }
         List<Long> matchesList = calc.matchIdList(history);
         ArrayList<MatchDetails> matchDetailses = new ArrayList<>();
@@ -81,10 +79,9 @@ public class MainController {
                 matchDetailses.add(api.getMatchDetails(matchId));
                 final double finalProgress = progress;
                 Platform.runLater(() -> progressBar.setProgress(finalProgress));
-            } catch (IOException e) {
+            } catch (RuntimeException e) {
                 progress += 0.05;
                 final double finalProgress = progress;
-                resultText.setText(e.getMessage());
                 Platform.runLater(() -> progressBar.setProgress(finalProgress));
             }
         }
