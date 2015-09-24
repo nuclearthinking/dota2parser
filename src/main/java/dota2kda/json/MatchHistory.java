@@ -1,4 +1,4 @@
-package json;
+package dota2kda.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

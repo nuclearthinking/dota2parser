@@ -1,7 +1,10 @@
-import json.Match;
-import json.MatchDetails;
-import json.MatchHistory;
-import json.Player;
+package dota2kda;
+
+import dota2kda.controller.ApiController;
+import dota2kda.json.Match;
+import dota2kda.json.MatchDetails;
+import dota2kda.json.MatchHistory;
+import dota2kda.json.Player;
 
 import java.io.IOException;
 import java.math.BigDecimal;

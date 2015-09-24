@@ -1,10 +1,13 @@
+package dota2kda.controller;
+
+import dota2kda.KdaCalculator;
+import dota2kda.json.MatchDetails;
+import dota2kda.json.MatchHistory;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
-import json.MatchDetails;
-import json.MatchHistory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,6 +17,7 @@ public class MainController {
     private static final int MATCHES_AMOUNT = 20;
     private ApiController api = new ApiController();
     private KdaCalculator calc = new KdaCalculator();
+
     @FXML
     private TextField steamIdTextArea;
 
