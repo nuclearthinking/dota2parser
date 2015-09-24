@@ -4,11 +4,14 @@ import dota2kda.KdaCalculator;
 import dota2kda.json.MatchDetails;
 import dota2kda.json.MatchHistory;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -41,7 +44,14 @@ public class MainController {
 
     @FXML
     private void initialize() {
-
+        steamIdTextArea.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    calculate();
+                }
+            }
+        });
     }
 
     public void calculate() {
