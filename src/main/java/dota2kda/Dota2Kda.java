@@ -18,7 +18,7 @@ public class Dota2Kda extends Application {
         this.primaryStage = primaryStage;
         primaryStage.setTitle("Dota2 KDA Ratio");
         primaryStage.setResizable(false);
-        Image icon = new Image(getClass().getResourceAsStream("/images/icon.png"));
+        Image icon = new Image(getClass().getResourceAsStream("/images/icon7.png"));
         primaryStage.getIcons().add(icon);
         initMainLayout();
 
