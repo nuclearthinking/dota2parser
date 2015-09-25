@@ -55,21 +55,19 @@ public class MainController {
 
     public void calculate() {
         button.setDisable(true);
-        new Thread(this::calculationStart).start();
+        new Thread(this::calculationTask).start();
     }
 
-    protected void calculationStart() {
+    protected void calculationTask() {
         double progress = 0.0;
         double step = 0;
-        String s1 = steamIdTextArea.getText();
 
-        int accountId = Integer.parseInt(s1);
-
+        int accountId = Integer.parseInt(steamIdTextArea.getText());
         MatchHistory history = null;
         try {
             history = api.getMatchHistory(MATCHES_AMOUNT, accountId);
         } catch (RuntimeException e) {
-            Platform.runLater(() -> resultText.setText("VALVE API is currently not available, try later... "));
+            Platform.runLater(() -> resultText.setText(e.getLocalizedMessage()));
             Platform.runLater(() -> button.setDisable(false));
         }
         List<Long> matchesList = calc.matchIdList(history);

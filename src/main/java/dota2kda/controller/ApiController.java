@@ -35,21 +35,21 @@ public class ApiController {
         try {
             jp = jsonFactory.createParser(request);
         } catch (IOException e) {
-            throw new RuntimeException("VALVE Api currently not available, try later");
+            throw new RuntimeException("Cant read match history data");
         }
         ObjectMapper mapper = new ObjectMapper();
         MappingIterator<MatchHistory> last20matchHistory = null;
         try {
             last20matchHistory = mapper.readValues(jp, MatchHistory.class);
         } catch (IOException e) {
-            throw new RuntimeException("VALVE Api currently not available, try later");
+            throw new RuntimeException("Cant handle match history data");
         }
         return last20matchHistory.next();
     }
 
     public MatchDetails getMatchDetails(long matchId) {
         try {
-            Thread.sleep(600);
+            Thread.sleep(300);
         } catch (InterruptedException e) {
             System.out.println(e.getMessage());
         }
