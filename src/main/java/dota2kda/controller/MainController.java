@@ -66,12 +66,15 @@ public class MainController {
         MatchHistory history = null;
         try {
             history = api.getMatchHistory(MATCHES_AMOUNT, accountId);
+            progress += 0.1;
+            final double finalProgress = progress;
+            Platform.runLater(() -> progressBar.setProgress(finalProgress));
         } catch (RuntimeException e) {
             Platform.runLater(() -> resultText.setText(e.getLocalizedMessage()));
             Platform.runLater(() -> button.setDisable(false));
         }
         List<Long> matchesList = calc.matchIdList(history);
-        step = (double) 1 / matchesList.size();
+        step = (double) 0.9 / matchesList.size();
         ArrayList<MatchDetails> matchDetailses = new ArrayList<>();
         for (Long matchId : matchesList) {
             try {
@@ -81,8 +84,8 @@ public class MainController {
                 Platform.runLater(() -> progressBar.setProgress(finalProgress));
             } catch (RuntimeException e) {
                 progress += step;
-                final double finalProgress = progress;
-                Platform.runLater(() -> progressBar.setProgress(finalProgress));
+                final double finalProgress1 = progress;
+                Platform.runLater(() -> progressBar.setProgress(finalProgress1));
             }
         }
         List<int[]> scoreList = calc.playerScore(matchDetailses, accountId);
